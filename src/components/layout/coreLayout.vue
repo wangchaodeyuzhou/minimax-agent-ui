@@ -1,18 +1,31 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import ChatCore from '@/components/core/chatCore.vue'
 import StudioContainer from '@/components/core/studioContainer.vue'
 import { useResizableSplitter } from '@/hooks/resize/useResizeableSplitter.ts'
 
 const containerRef = ref<HTMLElement | null>(null)
-const { leftPercent, rightPercent, isDragging, onMouseDown } = useResizableSplitter(
+const leftElRef = ref<HTMLElement | null>(null)
+const rightElRef = ref<HTMLElement | null>(null)
+
+const { leftPx, rightPx, isDragging, onMouseDown } = useResizableSplitter(
   () => containerRef.value,
   {
-    defaultPercent: 60,
-    minPercent: 25,
-    maxPercent: 75,
+    defaultPercent: 50,
+    minPercent: 30,
+    maxPercent: 55,
+    leftElement: () => leftElRef.value,
+    rightElement: () => rightElRef.value,
   },
 )
+
+// Keep DOM widths in sync on mount and when computed pixel values change.
+watchEffect(() => {
+  const l = leftElRef.value
+  const r = rightElRef.value
+  if (l) l.style.width = leftPx.value + 'px'
+  if (r) r.style.width = rightPx.value + 'px'
+})
 </script>
 
 <template>
@@ -24,9 +37,11 @@ const { leftPercent, rightPercent, isDragging, onMouseDown } = useResizableSplit
           ref="containerRef"
         >
           <div
-            class="chat-container h-full overflow-hidden md:px-[0] relative transition-all duration-300 ease-[cubic-bezier(0.65,0,0.35,0)] min-w-full md:min-w-[432px] md:max-w-[800px]"
+            ref="leftElRef"
+            class="chat-container h-full overflow-hidden md:px-[0] relative transition-all duration-300 ease-[cubic-bezier(0.65,0,0.35,0)] md:min-w-[432px] md:max-w-[800px] min-w-0"
+            :class="{ 'no-transition': isDragging }"
             :style="{
-              width: leftPercent + '%',
+              width: leftPx + 'px',
             }"
           >
             <ChatCore />
@@ -41,9 +56,11 @@ const { leftPercent, rightPercent, isDragging, onMouseDown } = useResizableSplit
           </div>
 
           <div
-            class="studio-container h-full flex overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.65,0,0.35,0)] flex-1"
+            ref="rightElRef"
+            class="studio-container h-full flex overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.65,0,0.35,0)] min-w-0"
+            :class="{ 'no-transition': isDragging }"
             :style="{
-              width: rightPercent + '%',
+              width: rightPx + 'px',
             }"
           >
             <StudioContainer />
@@ -66,6 +83,7 @@ const { leftPercent, rightPercent, isDragging, onMouseDown } = useResizableSplit
   flex-direction: column;
   height: 100vh;
   margin: 0 auto;
+  will-change: width;
 }
 
 .resizer {
@@ -107,6 +125,12 @@ const { leftPercent, rightPercent, isDragging, onMouseDown } = useResizableSplit
   background: #3b82f6; /* blue-500 */
 }
 
+.studio-container {
+  /* ensure studio-container also hints the browser for smoother width changes */
+  will-change: width;
+}
+
+/* 当拖拽时禁用 transition 来获得更即时、丝滑的宽度变化 */
 .no-transition {
   transition: none !important;
 }

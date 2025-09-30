@@ -17,7 +17,7 @@ a,
   }
 }
 
-/* 让布局铺满视口，避免默认模板居中样式影响演示 */
+/* 让布局铺满视口，避免默认模板居中样式影响演�?*/
 html, body { height: 100%; }
 body { margin: 0; }
 
@@ -44,6 +44,12 @@ body { margin: 0; }
   height: 100%;
 }
 
+
+.dragging, .dragging * {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 /* Hide native scrollbars while keeping scroll functionality */
 .hide-scroll {
   -ms-overflow-style: none;
@@ -54,3 +60,4 @@ body { margin: 0; }
   width: 0;
   height: 0;
 }
+

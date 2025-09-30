@@ -36,6 +36,12 @@ const { leftPercent, rightPercent, isDragging, onMouseDown } =
 </template>
 
 <style scoped lang="scss">
+.content_wrap {
+  min-height: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
 .resizer {
   width: 4px;
   height: 100%;
@@ -73,9 +79,5 @@ const { leftPercent, rightPercent, isDragging, onMouseDown } =
 .resizer.dragging .resizer-handle {
   transform: scaleX(1.5);
   background: #3b82f6; /* blue-500 */
-}
-body.dragging {
-  cursor: col-resize !important;
-  user-select: none !important;
 }
 </style>

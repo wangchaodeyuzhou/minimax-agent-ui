@@ -43,7 +43,7 @@ const isSendEnabled = computed(() => message.value.trim().length > 0)
 </script>
 
 <template>
-  <div class="chat-area hidden w-full md:block">
+  <div class="relative hidden w-full md:block flex pb-6">
     <div class="chat-input-shell">
       <div class="chat-inner">
         <textarea
@@ -129,10 +129,6 @@ const isSendEnabled = computed(() => message.value.trim().length > 0)
 </template>
 
 <style scoped>
-.chat-area {
-  position: relative;
-}
-
 .chat-input-shell {
   padding: 1px;
   border-radius: 18px;

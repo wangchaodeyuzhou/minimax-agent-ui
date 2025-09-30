@@ -1,7 +1,5 @@
 ﻿<template>
-    <div
-      class="studio-container h-full overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.65,0,0.35,0)] flex-1"
-      style="display: flex">
+    <div class="studio-container h-full flex overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.65,0,0.35,0)] flex-1">
       <div class="flex-1 md:mt-[9px] bg-[#F6F7F9] md:border md:border-[#EAEAEA] md:rounded-[20px] md:relative absolute top-0 bottom-0 right-0 w-full flex flex-col flex-1 p-[16px] overflow-hidden text-pretty transition-all duration-300 ease-[cubic-bezier(0.65,0,0.35,0)] flex flex-col pt-[16px]">
         <div class="text-[18px] font-[500] text-col_text00 flex justify-between items-center">
           MiniMax 的视窗

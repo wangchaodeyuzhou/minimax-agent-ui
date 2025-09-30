@@ -1,0 +1,582 @@
+/* codeBlock.css
+   抽离自 CodeBlock.vue 的样式，提供白天/黑夜主题支持。
+   - 通过 .code-block--dark / .code-block--light 强制主题
+   - 默认为 prefers-color-scheme（当没有强制 themeClass 时）
+*/
+
+/* Default variables (will be overridden by media queries or explicit theme classes) */
+:root {
+    --cb-bg: #f8fafc; /* light */
+    --cb-foreground: #0b1220;
+    --cb-border: rgba(0,0,0,0.08);
+    --cb-header-bg: rgba(0,0,0,0.02);
+    --cb-line-number: #6b7280;
+    --cb-selection: rgba(59,130,246,0.18);
+    --cb-comment: #6b7280;
+    --cb-keyword: #7c3aed;
+    --cb-number: #b45309;
+    --cb-string: #0f9d58;
+    --cb-title: #2563eb;
+    --cb-attr: #b7791f;
+    --cb-tag: #b91c1c;
+}
+
+/* prefers-color-scheme: dark 默认值 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --cb-bg: #0b1220;
+        --cb-foreground: #e6edf3;
+        --cb-border: rgba(255,255,255,0.06);
+        --cb-header-bg: rgba(255,255,255,0.02);
+        --cb-line-number: #9ca3af;
+        --cb-selection: rgba(59,130,246,0.18);
+        --cb-comment: #6b7280;
+        --cb-keyword: #c792ea;
+        --cb-number: #f78c6c;
+        --cb-string: #98c379;
+        --cb-title: #61afef;
+        --cb-attr: #e6c07b;
+        --cb-tag: #e06c75;
+    }
+}
+
+/* Explicit theme classes to force light/dark regardless of system preference */
+.code-block--dark {
+    --cb-bg: #0b1220;
+    --cb-foreground: #e6edf3;
+    --cb-border: rgba(255,255,255,0.06);
+    --cb-header-bg: rgba(255,255,255,0.02);
+    --cb-line-number: #9ca3af;
+    --cb-selection: rgba(59,130,246,0.18);
+    --cb-comment: #6b7280;
+    --cb-keyword: #c792ea;
+    --cb-number: #f78c6c;
+    --cb-string: #98c379;
+    --cb-title: #61afef;
+    --cb-attr: #e6c07b;
+    --cb-tag: #e06c75;
+}
+
+.code-block--light {
+    --cb-bg: #ffffff;
+    --cb-foreground: #0b1220;
+    --cb-border: rgba(0,0,0,0.08);
+    --cb-header-bg: rgba(0,0,0,0.02);
+    --cb-line-number: #6b7280;
+    --cb-selection: rgba(59,130,246,0.12);
+    --cb-comment: #6b7280;
+    --cb-keyword: #7c3aed;
+    --cb-number: #b45309;
+    --cb-string: #0f9d58;
+    --cb-title: #2563eb;
+    --cb-attr: #b7791f;
+    --cb-tag: #b91c1c;
+}
+
+/* Selection color: target pre.code-line and inner code selection too */
+.code-rows-container::selection,
+.code-rows-container pre.code-line::selection,
+.code-rows-container pre.code-line code::selection {
+    background-color: var(--cb-selection);
+}
+
+/* Animation */
+.code-block {
+    animation: slideIn 0.28s ease-out;
+    background-color: var(--cb-bg);
+    color: var(--cb-foreground);
+    border-color: var(--cb-border);
+}
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Variables for precise control: tightened for denser rows */
+.code-block {
+    --code-line-height: 0.95;
+    --code-vertical-pad: 0.12rem;
+    --code-horizontal-pad: 0.12rem;
+    --line-number-width: 5ch;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
+}
+
+/* Header specific styling */
+.code-block__header {
+    background-color: var(--cb-header-bg);
+    border-bottom: 1px solid var(--cb-border);
+}
+
+/* Container that holds all rows and provides scrolling */
+.code-rows-container {
+    width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    padding: 0;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+/* One visual row containing the number (optional) and the code cell */
+.code-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    box-sizing: border-box;
+    white-space: nowrap;
+    line-height: var(--code-line-height);
+}
+/* src/components/markdown/codeBlock.css
+   主题化代码块样式（dark / light），并尽量确保原生 select/option 在暗色/亮色模式下有一致表现。
+   说明：原生 <option> 的外观在部分平台/浏览器上会被系统样式强制，无法完全覆盖；此文件尽最大努力使用 color-scheme / text-fill / !important 提升兼容性。
+*/
+
+/* --- Theme variables --- */
+:root {
+    --cb-bg: #ffffff;
+    --cb-foreground: #0b1220;
+    --cb-border: rgba(0,0,0,0.08);
+    --cb-header-bg: rgba(0,0,0,0.02);
+    --cb-line-number: #6b7280;
+    --cb-selection: rgba(59,130,246,0.12);
+
+    /* controls */
+    --cb-control-bg: rgba(15,23,42,0.04);
+    --cb-control-foreground: #0b1220;
+    --cb-control-border: rgba(0,0,0,0.08);
+    --cb-control-hover-bg: rgba(15,23,42,0.06);
+    --cb-control-focus-ring: rgba(59,130,246,0.12);
+
+    /* scrollbar */
+    --cb-scrollbar-track: rgba(0,0,0,0.05);
+    --cb-scrollbar-thumb: rgba(0,0,0,0.15);
+    --cb-scrollbar-thumb-hover: rgba(0,0,0,0.25);
+}
+
+/* dark system preference defaults */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --cb-bg: #0b1220;
+        --cb-foreground: #e6edf3;
+        --cb-border: rgba(255,255,255,0.06);
+        --cb-header-bg: rgba(255,255,255,0.02);
+        --cb-line-number: #9ca3af;
+        --cb-selection: rgba(59,130,246,0.18);
+
+        --cb-control-bg: rgba(255,255,255,0.02);
+        --cb-control-foreground: #e6edf3;
+        --cb-control-border: rgba(255,255,255,0.06);
+        --cb-control-hover-bg: rgba(255,255,255,0.03);
+        --cb-control-focus-ring: rgba(59,130,246,0.12);
+
+        --cb-scrollbar-track: rgba(255,255,255,0.05);
+        --cb-scrollbar-thumb: rgba(255,255,255,0.15);
+        --cb-scrollbar-thumb-hover: rgba(255,255,255,0.25);
+    }
+}
+
+/* explicit theme forcing */
+.code-block--dark {
+    --cb-bg: #0b1220;
+    --cb-foreground: #e6edf3;
+    --cb-border: rgba(255,255,255,0.06);
+    --cb-header-bg: rgba(255,255,255,0.02);
+    --cb-line-number: #9ca3af;
+
+    --cb-control-bg: rgba(255,255,255,0.02);
+    --cb-control-foreground: #e6edf3;
+    --cb-control-border: rgba(255,255,255,0.06);
+    --cb-control-hover-bg: rgba(255,255,255,0.03);
+    --cb-control-focus-ring: rgba(59,130,246,0.12);
+
+    --cb-scrollbar-track: rgba(255,255,255,0.05);
+    --cb-scrollbar-thumb: rgba(255,255,255,0.15);
+    --cb-scrollbar-thumb-hover: rgba(255,255,255,0.25);
+}
+
+.code-block--light {
+    --cb-bg: #ffffff;
+    --cb-foreground: #0b1220;
+    --cb-border: rgba(0,0,0,0.08);
+    --cb-header-bg: rgba(0,0,0,0.02);
+    --cb-line-number: #6b7280;
+
+    --cb-control-bg: rgba(15,23,42,0.04);
+    --cb-control-foreground: #0b1220;
+    --cb-control-border: rgba(0,0,0,0.08);
+    --cb-control-hover-bg: rgba(15,23,42,0.06);
+    --cb-control-focus-ring: rgba(59,130,246,0.12);
+
+    --cb-scrollbar-track: rgba(0,0,0,0.05);
+    --cb-scrollbar-thumb: rgba(0,0,0,0.15);
+    --cb-scrollbar-thumb-hover: rgba(0,0,0,0.25);
+}
+
+/* --- Base and header --- */
+.code-block {
+    animation: slideIn 0.28s ease-out;
+    background-color: var(--cb-bg);
+    color: var(--cb-foreground);
+    border-color: var(--cb-border);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
+}
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.code-block__header {
+    background-color: var(--cb-header-bg);
+    border-bottom: 1px solid var(--cb-border);
+    padding: 0.25rem;
+}
+
+/* --- Select (native, simple styling) --- */
+.code-block__select {
+    background-color: var(--cb-bg);
+    color: var(--cb-foreground);
+    border: 1px solid var(--cb-border);
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.15s ease;
+    min-width: 120px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover state */
+.code-block__select:hover {
+    border-color: var(--cb-control-border);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Focus state */
+.code-block__select:focus,
+.code-block__select:focus-visible {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Option styling - theme aware */
+.code-block__select option {
+    background-color: var(--cb-bg);
+    color: var(--cb-foreground);
+    padding: 0.375rem 0.75rem;
+}
+
+/* Dark theme option styling */
+.code-block--dark .code-block__select option {
+    background-color: var(--cb-bg);
+    color: var(--cb-foreground);
+}
+
+/* Light theme option styling */
+.code-block--light .code-block__select option {
+    background-color: var(--cb-bg);
+    color: var(--cb-foreground);
+}
+
+/* Force color-scheme for better native styling */
+.code-block--dark .code-block__select {
+    color-scheme: dark;
+}
+
+.code-block--light .code-block__select {
+    color-scheme: light;
+}
+
+/* Hide default expand button on IE/Edge */
+.code-block__select::-ms-expand {
+    display: none;
+}
+
+/* Select dropdown scrollbar styling (webkit browsers) */
+.code-block__select::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.code-block__select::-webkit-scrollbar-track {
+    background: var(--cb-scrollbar-track);
+    border-radius: 4px;
+}
+
+.code-block__select::-webkit-scrollbar-thumb {
+    background: var(--cb-scrollbar-thumb);
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.code-block__select::-webkit-scrollbar-thumb:hover {
+    background: var(--cb-scrollbar-thumb-hover);
+}
+
+.code-block__select::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* Firefox scrollbar styling */
+.code-block__select {
+    scrollbar-width: thin;
+    scrollbar-color: var(--cb-scrollbar-thumb) var(--cb-scrollbar-track);
+}
+
+/* --- Copy button (retain theme-awareness) --- */
+.code-block__header .code-block__copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    background: transparent;
+    color: var(--cb-control-foreground);
+    border: 1px solid var(--cb-control-border);
+    cursor: pointer;
+    transition: background-color 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease, color 0.12s ease;
+}
+.code-block__header .code-block__copy-btn:hover {
+    background: rgba(0,0,0,0.04);
+}
+.code-block__header .code-block__copy-btn:focus,
+.code-block__header .code-block__copy-btn:focus-visible {
+    box-shadow: 0 0 0 3px var(--cb-control-focus-ring);
+    border-color: rgba(59,130,246,0.6);
+}
+.code-block__header .code-block__copy-btn--copied {
+    background: #16a34a;
+    color: #ffffff;
+    border-color: rgba(0,0,0,0.04);
+    box-shadow: 0 6px 12px rgba(22,163,74,0.18);
+}
+
+/* Disabled UI */
+.code-block__header .code-block__copy-btn[disabled],
+.code-block__header .code-block__select[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* --- Code rows & hljs token fallback colors --- */
+.code-rows-container {
+    width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    padding: 0;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+.code-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    box-sizing: border-box;
+    white-space: nowrap;
+    line-height: 0.95;
+}
+
+.line-number {
+    min-width: 5ch;
+    padding-right: 0.64rem;
+    padding-top: 0.12rem;
+    padding-bottom: 0.12rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+    color: var(--cb-line-number);
+    font-size: 0.9rem;
+    user-select: none;
+    border-right: 1px solid rgba(0,0,0,0.03);
+    padding-left: 0.6rem;
+}
+
+.code-cell {
+    flex: 1 1 auto;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    padding-left: 0.6rem;
+}
+
+pre.code-line,
+pre.code-line code {
+    background-image: none !important;
+    background: transparent !important;
+    margin: 0;
+    overflow: visible !important;
+    max-width: 100%;
+    word-break: normal;
+    white-space: pre;
+}
+
+pre.code-line::before,
+pre.code-line::after,
+pre.code-line code::before,
+pre.code-line code::after {
+    content: none !important;
+    display: none !important;
+}
+
+.code-block .hljs {
+    background: transparent !important;
+    color: inherit !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+}
+
+/* fallback token colors */
+.code-block .hljs-comment,
+.code-block .hljs-quote,
+.code-block .hljs-deletion { color: #6b7280 !important; opacity: 0.95; }
+.code-block .hljs-keyword { color: #7c3aed !important; }
+.code-block .hljs-number { color: #b45309 !important; }
+.code-block .hljs-string { color: #0f9d58 !important; }
+.code-block .hljs-title { color: #2563eb !important; }
+.code-block .hljs-attr { color: #b7791f !important; }
+.code-block .hljs-tag { color: #b91c1c !important; }
+
+/* final housekeeping */
+.code-rows-container, .code-row, .code-line, .line-number { margin: 0; }
+.code-rows-container:focus { outline: none; }
+/* Line number cell */
+.line-number {
+    width: auto;
+    min-width: var(--line-number-width);
+    box-sizing: border-box;
+    padding-right: 0.64rem;
+    padding-top: var(--code-vertical-pad);
+    padding-bottom: var(--code-vertical-pad);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+    color: var(--cb-line-number);
+    font-size: 0.9rem;
+    user-select: none;
+    border-right: 1px solid rgba(0,0,0,0.03);
+    padding-left: 0.6rem;
+}
+
+/* Code cell */
+.code-cell {
+    flex: 1 1 auto;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    padding-left: 0.6rem;
+}
+
+/* Defensive: hide pseudo-elements/background decorations */
+pre.code-line,
+pre.code-line code {
+    background-image: none !important;
+    background: transparent !important;
+    margin: 0;
+}
+pre.code-line::before,
+pre.code-line::after,
+pre.code-line code::before,
+pre.code-line code::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Prevent the code element from being treated as a block that creates its own scroll visuals */
+pre.code-line,
+pre.code-line code {
+    overflow: visible !important;
+    max-width: 100%;
+    word-break: normal;
+    white-space: pre;
+}
+
+/* Hide webkit scrollbars that might appear inside individual lines in some browsers/themes */
+pre.code-line::-webkit-scrollbar,
+pre.code-line code::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+/* Ensure highlight.js base class doesn't draw its own background and inherits our colors */
+.code-block .hljs {
+    background: transparent !important;
+    color: inherit !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+}
+
+/* Token colors (fallback/readability) */
+.code-block .hljs-comment,
+.code-block .hljs-quote,
+.code-block .hljs-deletion {
+    color: var(--cb-comment) !important;
+    opacity: 0.95;
+}
+
+.code-block .hljs-keyword,
+.code-block .hljs-selector-tag,
+.code-block .hljs-subst,
+.code-block .hljs-doctag {
+    color: var(--cb-keyword) !important;
+}
+
+.code-block .hljs-number,
+.code-block .hljs-literal,
+.code-block .hljs-variable,
+.code-block .hljs-template-variable,
+.code-block .hljs-tag .hljs-attr {
+    color: var(--cb-number) !important;
+}
+
+.code-block .hljs-string,
+.code-block .hljs-meta .hljs-string,
+.code-block .hljs-regexp {
+    color: var(--cb-string) !important;
+}
+
+.code-block .hljs-title,
+.code-block .hljs-section,
+.code-block .hljs-selector-id,
+.code-block .hljs-function {
+    color: var(--cb-title) !important;
+}
+
+.code-block .hljs-attr,
+.code-block .hljs-attribute {
+    color: var(--cb-attr) !important;
+}
+
+.code-block .hljs-tag,
+.code-block .hljs-name {
+    color: var(--cb-tag) !important;
+}
+
+/* If a code line contains very long content, allow horizontal scroll on the container */
+.code-rows-container {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+/* Avoid default margins */
+.code-rows-container, .code-row, .code-line, .line-number {
+    margin: 0;
+}
+
+/* Accessibility: focus/selection visuals */
+.code-rows-container:focus {
+    outline: none;
+}
+

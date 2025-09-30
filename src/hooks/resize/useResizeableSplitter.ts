@@ -8,14 +8,14 @@ export function useResizableSplitter(
     maxPercent?: number
   }
 ) {
-  const rightPercent = ref(opts?.defaultPercent ?? 28)
+  const leftPercent = ref(opts?.defaultPercent ?? 60)
   const isDragging = ref(false)
 
   let startX = 0
   let startPercent = 0
 
-  const min = opts?.minPercent ?? 12
-  const max = opts?.maxPercent ?? 70
+  const min = opts?.minPercent ?? 25
+  const max = opts?.maxPercent ?? 75
 
   function clamp(v: number) {
     return Math.max(min, Math.min(max, v))
@@ -25,7 +25,7 @@ export function useResizableSplitter(
     if (e.button !== 0) return
     isDragging.value = true
     startX = e.clientX
-    startPercent = rightPercent.value
+    startPercent = leftPercent.value
     document.body.classList.add("dragging")
     window.addEventListener("mousemove", onMouseMove, { passive: false })
     window.addEventListener("mouseup", onMouseUp, { passive: false })
@@ -40,7 +40,7 @@ export function useResizableSplitter(
 
     const delta = e.clientX - startX
     const percentDelta = (delta / container.clientWidth) * 100
-    rightPercent.value = clamp(startPercent + percentDelta)
+    leftPercent.value = clamp(startPercent + percentDelta)
   }
 
   function onMouseUp() {
@@ -51,7 +51,7 @@ export function useResizableSplitter(
   }
 
   function onResize() {
-    rightPercent.value = clamp(rightPercent.value)
+    leftPercent.value = clamp(leftPercent.value)
   }
 
   window.addEventListener("resize", onResize)
@@ -62,7 +62,7 @@ export function useResizableSplitter(
     window.removeEventListener("resize", onResize)
   })
 
-  const leftPercent = computed(() => 100 - rightPercent.value)
+  const rightPercent = computed(() => 100 - leftPercent.value)
 
   return { leftPercent, rightPercent, isDragging, onMouseDown }
 }

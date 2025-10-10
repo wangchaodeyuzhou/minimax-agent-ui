@@ -17,7 +17,7 @@ a,
   }
 }
 
-/* 让布局铺满视口，避免默认模板居中样式影响演�?*/
+/* 让布局铺满视口，避免默认模板居中样式影响演�?*/
 html, body { height: 100%; }
 body { margin: 0; }
 
@@ -61,3 +61,50 @@ body { margin: 0; }
   height: 0;
 }
 
+.messages-container {
+  position: relative;
+  --thumb-height: 48px;
+  --thumb-offset: 0px;
+}
+
+.messages-scrollbar {
+  pointer-events: none;
+}
+
+.messages-scrollbar__track {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  right: 2px;
+  width: 6px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.messages-scrollbar__thumb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: var(--thumb-height, 40px);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(var(--thumb-offset, 0px));
+  transition: opacity 0.35s ease, width 0.35s ease;
+}
+
+.messages-container.scrollbar-visible .messages-scrollbar__thumb {
+  opacity: 1;
+  width: 8px;
+}
+
+.messages-container.scrollable {
+  scrollbar-width: none;
+}
+
+.messages-container.scrollable::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

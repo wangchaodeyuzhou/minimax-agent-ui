@@ -25,22 +25,18 @@
         :class="{ 'code-block__copy-btn--copied': copied }"
         :disabled="copied"
       >
-        <svg v-if="!copied" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-          />
-        </svg>
-        <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M5 13l4 4L19 7"
-          />
-        </svg>
+        <Icon
+          v-if="!copied"
+          icon="mdi:content-copy"
+          class="w-4 h-4 text-current"
+          aria-hidden="true"
+        />
+        <Icon
+          v-else
+          icon="mdi:check"
+          class="w-4 h-4 text-current"
+          aria-hidden="true"
+        />
         <span>{{ copied ? 'Copied!' : 'Copy' }}</span>
       </button>
     </div>
@@ -63,6 +59,7 @@
 import { ref, computed, onMounted, defineEmits, watch, nextTick } from 'vue'
 import { useCodeBlock } from '@/hooks/markdown/useCodeBlock.ts'
 import '@/hooks/markdown/codeBlock.css'
+import { Icon } from '@iconify/vue'
 
 interface Props {
   code: string
@@ -89,8 +86,7 @@ const isSelecting = ref(false)
 const selectedLanguage = ref(props.language)
 const codeRenderRef = ref<HTMLElement | null>(null)
 
-
-const { codeBlockRef, renderCodeBlock, highlightCode, copyToClipboard } = useCodeBlock()
+const { codeBlockRef, highlightCode, copyToClipboard } = useCodeBlock()
 
 const themeClass = computed(() => {
   const t = props.theme || 'auto'

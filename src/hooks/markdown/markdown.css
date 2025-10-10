@@ -1,7 +1,5 @@
 .styled-markdown {
-  font-family:
-    var(--vscode-font-family),
-    system-ui,
+    font-family: system-ui,
     -apple-system,
     BlinkMacSystemFont,
     'Segoe UI',
@@ -12,105 +10,103 @@
     'Open Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: var(--vscode-font-size, 13px);
+    font-size: 1.1rem;
+    line-height: 1.5;
 }
 
 .styled-markdown * {
-  font-weight: 400;
+    font-weight: 400;
 }
 
 .styled-markdown strong {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 .styled-markdown code:not(pre > code) {
-  /* Make inline code more visible and consistent across themes */
-  font-family: var(--vscode-editor-font-family, monospace);
-  font-size: 0.95em;
-  color: var(--vscode-textPreformat-foreground, #c7254e) !important;
-  background-color: var(--vscode-textPreformat-background, rgba(27, 31, 35, 0.06)) !important;
-  padding: 0.12em 0.4em;
-  border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  white-space: pre; /* preserve spacing inside inline code */
-  word-break: normal;
-  overflow-wrap: normal;
-  display: inline-block;
-  line-height: 1;
+    /* Make inline code more visible and consistent across themes */
+    font-family: monospace;
+    font-size: 0.95em;
+    color: #c7254e !important;
+    background-color: rgba(27, 31, 35, 0.06) !important;
+    padding: 0.12em 0.4em;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    white-space: pre; /* preserve spacing inside inline code */
+    word-break: normal;
+    overflow-wrap: normal;
+    display: inline-block;
+    line-height: 1;
 }
 
 /* Target only Dark High Contrast theme */
 body[data-vscode-theme-kind='vscode-high-contrast'] .styled-markdown code:not(pre > code) {
-  color: var(
-    --vscode-editorInlayHint-foreground,
-    var(--vscode-symbolIcon-stringForeground, var(--vscode-charts-orange, #e9a700))
-  );
-  background-color: rgba(255, 255, 255, 0.06) !important;
-  border-color: rgba(255, 255, 255, 0.12);
+    color: #e9a700;
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.12);
 }
 
 /* KaTeX styling */
 .styled-markdown .katex {
-  font-size: 1.1em;
-  color: var(--vscode-editor-foreground);
-  font-family: KaTeX_Main, 'Times New Roman', serif;
-  line-height: 1.2;
-  white-space: normal;
-  text-indent: 0;
+    font-size: 1.1em;
+    color: var(--vscode-editor-foreground);
+    font-family: KaTeX_Main, 'Times New Roman', serif;
+    line-height: 1.2;
+    white-space: normal;
+    text-indent: 0;
 }
 
 .styled-markdown .katex-display {
-  display: block;
-  margin: 1em 0;
-  text-align: center;
-  padding: 0.5em;
-  overflow-x: auto;
-  overflow-y: hidden;
-  background-color: var(--vscode-textCodeBlock-background);
-  border-radius: 3px;
+    display: block;
+    margin: 1em 0;
+    text-align: center;
+    padding: 0.5em;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background-color: var(--vscode-textCodeBlock-background);
+    border-radius: 3px;
 }
 
 .styled-markdown .katex-error {
-  color: var(--vscode-errorForeground);
+    color: var(--vscode-errorForeground);
 }
 
 .styled-markdown p,
 .styled-markdown li,
 .styled-markdown ol,
 .styled-markdown ul {
-  line-height: 1.35em;
+    line-height: 1.35em;
 }
 
 .styled-markdown li {
-  margin: 0.5em 0;
+    margin: 0.5em 0;
 }
 
 /* Headings: 统一 h1 - h3 的尺寸、间距和权重，确保在不同主题下一致可读 */
 .styled-markdown h1 {
-  font-size: 1.9em; /* 更明显的层级 */
-  margin: 0.8em 0 0.35em;
-  font-weight: 700;
-  line-height: 1.15;
-  color: var(--vscode-foreground, inherit);
-  letter-spacing: -0.02em;
+    font-size: 1.9em; /* 更明显的层级 */
+    margin: 0.8em 0 0.35em;
+    font-weight: 700;
+    line-height: 1.15;
+    color: inherit;
+    letter-spacing: -0.02em;
 }
 
 .styled-markdown h2 {
-  font-size: 1.35em;
-  margin: 1.1em 0 0.45em;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--vscode-foreground, inherit);
-  letter-spacing: -0.01em;
+    font-size: 1.35em;
+    margin: 1.1em 0 0.45em;
+    font-weight: 600;
+    line-height: 1.2;
+    color: inherit;
+    letter-spacing: -0.01em;
 }
 
 .styled-markdown h3 {
-  font-size: 1.15em;
-  margin: 0.95em 0 0.4em;
-  font-weight: 600;
-  line-height: 1.22;
-  color: var(--vscode-foreground, inherit);
-  letter-spacing: 0;
+    font-size: 1.15em;
+    margin: 0.95em 0 0.4em;
+    font-weight: 600;
+    line-height: 1.22;
+    color: inherit;
+    letter-spacing: 0;
 }
 
 /* -----------------------------
@@ -121,32 +117,32 @@ body[data-vscode-theme-kind='vscode-high-contrast'] .styled-markdown code:not(pr
 /* 列表统一外边距与行高 */
 .styled-markdown ol,
 .styled-markdown ul {
-  margin-left: 0;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  line-height: 1.45;
+    margin-left: 0;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.45;
 }
 
 /* 顶级无序列表缩进（符号与文本距离合适） */
 .styled-markdown ul {
-  padding-left: 1.5rem; /* 为符号和少量嵌套留出空间 */
-  list-style-position: outside;
-  list-style-type: disc;
+    padding-left: 1.5rem; /* 为符号和少量嵌套留出空间 */
+    list-style-position: outside;
+    list-style-type: disc;
 }
 
 /* 顶级有序列表缩进（为两位数编号留出额外空间） */
 .styled-markdown ol {
-  padding-left: 2.25rem; /* 号码预留宽度 */
-  list-style-position: outside;
-  list-style-type: decimal;
+    padding-left: 2.25rem; /* 号码预留宽度 */
+    list-style-position: outside;
+    list-style-type: decimal;
 }
 
 /* 顶级列表项：相对定位以支持任务列表中复选框的绝对定位 */
 .styled-markdown ol > li,
 .styled-markdown ul > li {
-  margin: 0.35em 0;
-  padding-left: 0;
-  position: relative;
+    margin: 0.35em 0;
+    padding-left: 0;
+    position: relative;
 }
 
 /* 嵌套规则：每层在父级基础上再缩进一层，避免标记与内容重叠 */
@@ -154,9 +150,9 @@ body[data-vscode-theme-kind='vscode-high-contrast'] .styled-markdown code:not(pr
 .styled-markdown ol ul,
 .styled-markdown ul ol,
 .styled-markdown ol ol {
-  padding-left: 1.25rem; /* 相对父级再缩进 */
-  margin-top: 0;
-  margin-bottom: 0;
+    padding-left: 1.25rem; /* 相对父级再缩进 */
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 /* 更深层嵌套再增加相同的缩进步幅 */
@@ -164,7 +160,7 @@ body[data-vscode-theme-kind='vscode-high-contrast'] .styled-markdown code:not(pr
 .styled-markdown ol ol ol,
 .styled-markdown ul ol ol,
 .styled-markdown ol ul ul {
-  padding-left: 1.25rem;
+    padding-left: 1.25rem;
 }
 
 /* -----------------------------
@@ -176,288 +172,285 @@ body[data-vscode-theme-kind='vscode-high-contrast'] .styled-markdown code:not(pr
 /* 简洁的任务列表样式：基于 baseline 对齐以确保复选框与文本第一行基线一致 */
 .styled-markdown li.task-list-item,
 .styled-markdown li.task-list-item p {
-  list-style: none;
+    list-style: none;
 }
 
 /* 使用 flex 且按 baseline 对齐，适配单行与多行内容（emoji/inline-code 等） */
 .styled-markdown li.task-list-item {
-  display: flex;
-  align-items: baseline; /* 关键：以文本基线对齐，避免内容或复选框视觉偏移 */
-  gap: 0.5rem;
-  margin: 0.35em 0;
-  padding-left: 0;
-  line-height: 1.45;
-  min-width: 0;
+    display: flex;
+    align-items: baseline; /* 关键：以文本基线对齐，避免内容或复选框视觉偏移 */
+    gap: 0.5rem;
+    margin: 0.35em 0;
+    padding-left: 0;
+    line-height: 1.45;
+    min-width: 0;
 }
 
 /* 复选框在文档流内，按 baseline 对齐并保持固定尺寸（取消冗余微调） */
 .styled-markdown li.task-list-item > input[type="checkbox"] {
-  flex: 0 0 auto;
-  align-self: baseline;
-  width: 1rem;
-  height: 1rem;
-  margin: 0 0 0 0;
-  padding: 0;
-  vertical-align: baseline;
-  cursor: pointer;
-  accent-color: var(--vscode-button-background, #0366d6);
+    flex: 0 0 auto;
+    align-self: baseline;
+    width: 1rem;
+    height: 1rem;
+    margin: 0 0 0 0;
+    padding: 0;
+    vertical-align: baseline;
+    cursor: pointer;
+    accent-color: #0366d6;
 }
 
 /* focus 可见性 */
 .styled-markdown li.task-list-item > input[type="checkbox"]:focus {
-  box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.12);
-  border-radius: 4px;
+    box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.12);
+    border-radius: 4px;
 }
 
 /* 已完成任务样式（复选框选中后）——使用相邻选择器兼容多种渲染输出 */
-.styled-markdown li.task-list-item > input[type="checkbox"]:checked + * ,
+.styled-markdown li.task-list-item > input[type="checkbox"]:checked + *,
 .styled-markdown li.task-list-item > input[type="checkbox"]:checked ~ * {
-  color: var(--vscode-descriptionForeground, #6b7280);
-  text-decoration: line-through;
-  opacity: 0.9;
+    color: #6b7280;
+    text-decoration: line-through;
+    opacity: 0.9;
 }
 
 /* 兼容未加 class 的渲染器输出（input 直接作为 li 的第一个子元素） */
 .styled-markdown li > input[type="checkbox"] {
-  flex: 0 0 auto;
-  align-self: baseline;
-  width: 1rem;
-  height: 1rem;
-  margin: 0;
-  padding: 0;
-  vertical-align: baseline;
-  accent-color: var(--vscode-button-background, #0366d6);
+    flex: 0 0 auto;
+    align-self: baseline;
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+    accent-color: #0366d6;
 }
 
 /* Disabled 状态外观 */
 .styled-markdown li.task-list-item > input[type="checkbox"][disabled],
 .styled-markdown li > input[type="checkbox"][disabled] {
-  cursor: default;
-  opacity: 0.7;
+    cursor: default;
+    opacity: 0.7;
 }
 
 /* 嵌套情形：依靠父级列表的缩进实现层级，避免在这里重复大幅 padding */
 .styled-markdown li.task-list-item li.task-list-item,
 .styled-markdown li li.task-list-item {
-  padding-left: 0;
+    padding-left: 0;
 }
 
 /* 内容容器占用剩余空间，确保多行文本的第二行与第一行左对齐 */
 .styled-markdown li.task-list-item > *:not(input[type="checkbox"]) {
-  flex: 1 1 auto;
-  display: block;
-  min-width: 0;
+    flex: 1 1 auto;
+    display: block;
+    min-width: 0;
 }
 
 /* 去除任务项内段落的默认上边距，避免首行偏移 */
 .styled-markdown li.task-list-item p,
 .styled-markdown li.task-list-item > div {
-  margin-top: 0;
-  margin-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 /* 列表内部段落与代码不要与标记和复选框重叠 */
 .styled-markdown li p {
-  margin: 0.25em 0 0.25em;
+    margin: 0.25em 0 0.25em;
 }
 
 /* 保持段落样式一致性 */
 .styled-markdown p {
-  white-space: pre-wrap;
-  margin: 1em 0 0.25em;
+    white-space: pre-wrap;
+    margin: 1em 0 0.25em;
 }
 
 .styled-markdown pre {
-  min-height: 3em;
-  transition: height 0.2s ease-out;
+    min-height: 3em;
+    transition: height 0.2s ease-out;
 }
 
 .styled-markdown div:has(> pre) {
-  position: relative;
-  contain: layout style;
-  padding: 0.5em 1em;
+    position: relative;
+    contain: layout style;
+    padding: 0.5em 1em;
 }
 
 /* When a pre exists inside our CodeBlock component, remove the extra wrapper padding
    so gutter (line numbers) and code lines align tightly. This is more specific than
    the generic rule above and prevents the 0.5em 1em padding from shifting code. */
 .styled-markdown .code-block div:has(> pre) {
-  position: relative;
-  contain: layout style;
-  padding: 0; /* remove global wrapper padding inside code-block to tighten layout */
+    position: relative;
+    contain: layout style;
+    padding: 0; /* remove global wrapper padding inside code-block to tighten layout */
 }
 
 /* Also ensure the code-rows container itself has no padding (defensive) */
 .styled-markdown .code-block .code-rows-container {
-  padding: 0;
+    padding: 0;
 }
 
 .styled-markdown a {
-  color: var(--vscode-textLink-foreground, #0366d6);
-  text-decoration: none;
-  text-decoration-color: var(--vscode-textLink-foreground, #0366d6);
+    color: #0366d6;
+    text-decoration: none;
+    text-decoration-color: #0366d6;
 }
 
 .styled-markdown a:hover {
-  color: var(--vscode-textLink-activeForeground, #0b5ed7);
-  text-decoration: underline;
+    color: #0b5ed7;
+    text-decoration: underline;
 }
 
 /* 已在上方统一定义 h1-h3，移除重复定义以避免样式冲突 */
 /* 如果需要在特定场景覆盖标题样式，可在此处添加更具体的选择器 */
 
 .styled-markdown table {
-  border-collapse: collapse;
-  margin: 1em 0;
-  width: auto;
-  min-width: 50%;
-  max-width: 100%;
-  table-layout: fixed;
+    border-collapse: collapse;
+    margin: 1em 0;
+    width: auto;
+    min-width: 50%;
+    max-width: 100%;
+    table-layout: fixed;
 }
 
 .styled-markdown .table-wrapper {
-  overflow-x: auto;
-  margin: 1em 0;
+    overflow-x: auto;
+    margin: 1em 0;
 }
 
 .styled-markdown table th,
 .styled-markdown table td,
 .styled-markdown .table-wrapper table th,
 .styled-markdown .table-wrapper table td {
-  border: 1px solid var(--vscode-panel-border, rgba(0, 0, 0, 0.12)) !important;
-  padding: 8px 12px !important;
-  text-align: left !important;
-  word-wrap: break-word !important;
-  overflow-wrap: break-word !important;
-  background-clip: padding-box;
+    border: 1px solid var(--vscode-panel-border, rgba(0, 0, 0, 0.12)) !important;
+    padding: 8px 12px !important;
+    text-align: left !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    background-clip: padding-box;
 }
 
 .styled-markdown table th,
 .styled-markdown .table-wrapper table th {
-  background-color: var(--vscode-editor-background, rgba(0, 0, 0, 0.03)) !important;
-  font-weight: 600 !important;
-  color: var(--vscode-foreground, inherit) !important;
+    background-color: rgba(0, 0, 0, 0.03) !important;
+    font-weight: 600 !important;
+    color: inherit !important;
 }
 
 .styled-markdown table tr:nth-child(even),
 .styled-markdown .table-wrapper table tr:nth-child(even) {
-  background-color: var(--vscode-editor-inactiveSelectionBackground, transparent) !important;
+    background-color: transparent !important;
 }
 
 .styled-markdown table tr:hover,
 .styled-markdown .table-wrapper table tr:hover {
-  background-color: var(--vscode-list-hoverBackground, rgba(0, 0, 0, 0.03)) !important;
+    background-color: rgba(0, 0, 0, 0.03) !important;
 }
 
 .styled-markdown img.markdown-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 1em 0;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Blockquote */
 .styled-markdown blockquote {
-  margin: 0.8em 0;
-  padding: 0.75em 1em;
-  border-left: 4px solid var(--vscode-list-hoverBackground, rgba(0, 0, 0, 0.08));
-  color: var(--vscode-descriptionForeground, #6b7280);
-  background-color: var(--vscode-editor-background, rgba(0, 0, 0, 0.02));
-  border-radius: 6px;
-  position: relative;
-  /* 不将引用内容设为斜体，保持原文格式 */
+    margin: 0.8em 0;
+    padding: 0.75em 1em;
+    border-left: 4px solid rgba(0, 0, 0, 0.08);
+    color: #6b7280;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 6px;
+    position: relative;
+    /* 不将引用内容设为斜体，保持原文格式 */
 }
 
 /* Ensure paragraphs inside blockquote don't get extra margins */
 .styled-markdown blockquote p {
-  margin: 0;
-  line-height: 1.45;
+    margin: 0;
+    line-height: 1.45;
 }
 
 /* Remove decorative pseudo glyph to avoid interfering with content layout */
 /* (先移除 ::before，保持视觉简洁与可读性) */
 .styled-markdown blockquote::before {
-  content: '';
-  display: none;
+    content: '';
+    display: none;
 }
 
 /* Make inline code inside blockquotes look good and readable */
 .styled-markdown blockquote code:not(pre > code) {
-  /* 与全局 inline code 保持一致，但在引用内颜色继承主体文字颜色以便于阅读 */
-  background-color: var(--vscode-textPreformat-background, rgba(0, 0, 0, 0.04));
-  color: inherit !important;
-  padding: 0.08em 0.28em;
-  border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  font-family: var(--vscode-editor-font-family, monospace);
-  font-size: 0.92em;
-  white-space: pre;
+    /* 与全局 inline code 保持一致，但在引用内颜色继承主体文字颜色以便于阅读 */
+    background-color: rgba(0, 0, 0, 0.04);
+    color: inherit !important;
+    padding: 0.08em 0.28em;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    font-family:  monospace;
+    font-size: 0.92em;
+    white-space: pre;
 }
 
 /* Horizontal rule */
 .styled-markdown hr {
-  border: none;
-  border-top: 1px solid var(--vscode-editor-inactiveSelectionBackground, rgba(0, 0, 0, 0.1));
-  margin: 1.25em 0;
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 1.25em 0;
 }
 
 /* Code blocks */
 .styled-markdown pre {
-  background-color: var(--vscode-textCodeBlock-background, #0b1220);
-  color: var(--vscode-editor-foreground, #e6edf3);
-  padding: 1rem;
-  border-radius: 6px;
-  overflow: auto;
-  font-family: var(
-    --vscode-editor-font-family,
-    ui-monospace,
+    background-color: #0b1220;
+    color: #e6edf3;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow: auto;
+    font-family: ui-monospace,
     SFMono-Regular,
     Menlo,
     Monaco,
     'Roboto Mono',
     'Courier New',
-    monospace
-  );
-  font-size: 0.92em;
-  line-height: 1.45;
+    monospace;
+    font-size: 0.92em;
+    line-height: 1.45;
 }
 
 .styled-markdown pre code {
-  background: transparent;
-  padding: 0;
-  color: inherit;
+    background: transparent;
+    padding: 0;
+    color: inherit;
 }
 
 /* Headings h4-h6 */
 .styled-markdown h4 {
-  font-size: 1.05em;
-  font-weight: 600;
-  margin: 0.9em 0 0.35em;
+    font-size: 1.05em;
+    font-weight: 600;
+    margin: 0.9em 0 0.35em;
 }
 
 .styled-markdown h5 {
-  font-size: 0.95em;
-  font-weight: 600;
-  margin: 0.8em 0 0.3em;
+    font-size: 0.95em;
+    font-weight: 600;
+    margin: 0.8em 0 0.3em;
 }
 
 .styled-markdown h6 {
-  font-size: 0.85em;
-  font-weight: 600;
-  margin: 0.7em 0 0.2em;
-  color: var(--vscode-descriptionForeground, #6b7280);
+    font-size: 0.85em;
+    font-weight: 600;
+    margin: 0.7em 0 0.2em;
+    color: #6b7280;
 }
 
 /* Small tweaks for lists and paragraphs spacing */
 .styled-markdown ul,
 .styled-markdown ol {
-  margin: 0.6em 0 0.6em 1.2em;
+    margin: 0.6em 0 0.6em 1.2em;
 }
 
 .styled-markdown p + p {
-  margin-top: 0.6em;
+    margin-top: 0.6em;
 }
 
 /* ------------------------------------------------------------------
@@ -470,48 +463,48 @@ body[data-vscode-theme-kind='vscode-high-contrast'] .styled-markdown code:not(pr
    the line-number cell which uses flex + align-items:center.
    Defaults are tightened to reduce vertical spacing. */
 .styled-markdown .code-block pre.code-line {
-  box-sizing: border-box;
-  /* horizontal padding should match .line-number paddings for exact alignment */
-  padding-left: var(--code-horizontal-pad, 0.08rem);
-  padding-right: 1rem;
-  /* further reduce vertical padding default to tighten spacing; component variable still takes precedence */
-  padding-top: var(--code-vertical-pad, 0.02rem);
-  padding-bottom: var(--code-vertical-pad, 0.02rem);
+    box-sizing: border-box;
+    /* horizontal padding should match .line-number paddings for exact alignment */
+    padding-left: var(--code-horizontal-pad, 0.08rem);
+    padding-right: 1rem;
+    /* further reduce vertical padding default to tighten spacing; component variable still takes precedence */
+    padding-top: var(--code-vertical-pad, 0.02rem);
+    padding-bottom: var(--code-vertical-pad, 0.02rem);
 
-  /* ensure no unexpected wrapping inside each visual row */
-  white-space: pre;
-  display: flex;            /* make pre a flex container */
-  align-items: center;      /* vertical center the code content to match .line-number */
-  width: 100%;
-  font-size: 0.875rem; /* text-sm */
-  color: inherit;
+    /* ensure no unexpected wrapping inside each visual row */
+    white-space: pre;
+    display: flex; /* make pre a flex container */
+    align-items: center; /* vertical center the code content to match .line-number */
+    width: 100%;
+    font-size: 0.875rem; /* text-sm */
+    color: inherit;
 
-  /* Ensure computed height equals the line-number height; default tightened to 1.05 */
-  min-height: calc(1em * var(--code-line-height, 1.05));
-  background-color: transparent;
-  margin: 0;
-  line-height: var(--code-line-height, 1.05); /* explicit line-height to stabilize layout */
+    /* Ensure computed height equals the line-number height; default tightened to 1.05 */
+    min-height: calc(1em * var(--code-line-height, 1.05));
+    background-color: transparent;
+    margin: 0;
+    line-height: var(--code-line-height, 1.05); /* explicit line-height to stabilize layout */
 }
 
 /* Inner code element: stretch to fill the pre area and preserve whitespace */
 .styled-markdown .code-block pre.code-line code {
-  background: transparent;
-  padding: 0;
-  color: inherit;
-  display: block;
-  width: 100%;
-  white-space: pre; /* preserve spaces/tabs exactly */
-  line-height: inherit;
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    display: block;
+    width: 100%;
+    white-space: pre; /* preserve spaces/tabs exactly */
+    line-height: inherit;
 }
 
 /* Make inline highlight spans not change block layout */
 .styled-markdown .code-block pre.code-line code > * {
-  display: inline;
+    display: inline;
 }
 
 /* If there are inline block elements coming from highlight.js, force them inline */
 .styled-markdown .code-block pre.code-line code span,
 .styled-markdown .code-block pre.code-line code em,
 .styled-markdown .code-block pre.code-line code strong {
-  display: inline;
+    display: inline;
 }

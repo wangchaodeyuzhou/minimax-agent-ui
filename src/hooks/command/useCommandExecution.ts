@@ -1,5 +1,5 @@
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
-import type { CommandExecutionStatus } from '@/components/types/command.ts'
+import type { CommandExecutionStatus } from '@/components/c-command/command.ts'
 import { parseCommandAndOutput, safeJsonParse } from '@/utils/command.ts'
 import { useExtensionState } from '@/hooks/command/useExtensionState.ts'
 

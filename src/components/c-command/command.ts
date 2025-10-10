@@ -1,3 +1,4 @@
+// c-command 组件暂时没用到
 export type CommandExecutionStatus =
   | { status: "started"; executionId: string; pid?: number }
   | { status: "output"; executionId: string; output: string }

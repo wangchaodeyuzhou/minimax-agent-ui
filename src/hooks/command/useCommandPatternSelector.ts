@@ -1,5 +1,5 @@
 import { computed } from "vue"
-import type { CommandPattern } from "@/components/types/command.ts"
+import type { CommandPattern } from "@/components/c-command/command.ts"
 import { parseCommand, extractPatternsFromCommand, parseCommandAndOutput } from "@/utils/command.ts"
 import { useExtensionState } from '@/hooks/command/useExtensionState.ts'
 
